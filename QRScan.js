@@ -1,70 +1,98 @@
-import React, { Component } from 'react'
-import jsQR from 'jsqr'
+import React, { Component } from 'react';
+import jsQR from 'jsqr';
 
-const { requestAnimationFrame } = global
+const { requestAnimationFrame } = global;
 
 class QRScan extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       notEnabled: true,
       loading: true,
-      video: null
-    }
+      video: null,
+    };
   }
 
-  componentDidMount () {
-    const video = document.createElement('video')
-    const canvasElement = document.getElementById('qrCanvas')
-    const canvas = canvasElement.getContext('2d')
+  componentDidMount() {
+    const video = document.createElement('video');
+    const canvasElement = document.getElementById('qrCanvas');
+    const canvas = canvasElement.getContext('2d');
 
-    this.setState({ video })
+    this.setState({ video });
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(function (stream) {
-      video.srcObject = stream
-      video.setAttribute('playsinline', true)
-      video.play()
-      requestAnimationFrame(tick)
-    })
+    navigator.mediaDevices
+      .getUserMedia({ video: { facingMode: 'environment' } })
+      .then(function (stream) {
+        video.srcObject = stream;
+        video.setAttribute('playsinline', true);
+        video.play();
+        requestAnimationFrame(tick);
+      });
 
     const tick = () => {
-      if (this.state.notEnabled) this.setState({ notEnabled: false })
+      if (this.state.notEnabled) this.setState({ notEnabled: false });
       if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        if (this.state.loading) this.setState({ loading: false })
-        canvasElement.height = video.videoHeight
-        canvasElement.width = video.videoWidth
-        canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height)
-        var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height)
+        if (this.state.loading) this.setState({ loading: false });
+        canvasElement.height = video.videoHeight;
+        canvasElement.width = video.videoWidth / 2;
+        canvas.drawImage(
+          video,
+          0,
+          0,
+          canvasElement.width,
+          canvasElement.height
+        );
+        var imageData = canvas.getImageData(
+          0,
+          0,
+          canvasElement.width,
+          canvasElement.height
+        );
         var code = jsQR(imageData.data, imageData.width, imageData.height, {
-          inversionAttempts: 'dontInvert'
-        })
+          inversionAttempts: 'dontInvert',
+        });
         if (code) {
-          this.props.onFind(code.data)
+          this.props.onFind(code.data);
         }
       }
-      requestAnimationFrame(tick)
-    }
+      requestAnimationFrame(tick);
+    };
   }
 
-  componentWillUnmount () {
-    this.state.video.pause()
+  componentWillUnmount() {
+    this.state.video.pause();
   }
 
-  render () {
-    let message
+  render() {
+    let message;
     if (this.state.notEnabled) {
-      message = <div><span role='img' aria-label='camera'>🎥</span> Unable to access video stream (please make sure you have a webcam enabled)</div>
+      message = (
+        <div>
+          <span role='img' aria-label='camera'>
+            🎥
+          </span>{' '}
+          Unable to access video stream (please make sure you have a webcam
+          enabled)
+        </div>
+      );
     } else if (this.state.loading) {
-      message = <div><span role='img' aria-label='time'>⌛</span> Loading video...</div>
+      message = (
+        <div>
+          <span role='img' aria-label='time'>
+            ⌛
+          </span>{' '}
+          Loading video...
+        </div>
+      );
     }
 
     return (
       <div>
-        { message }
+        {message}
         <canvas id='qrCanvas' />
       </div>
-    )
+    );
   }
 }
 
-export default QRScan
+export default QRScan;
