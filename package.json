@@ -1,24 +1,41 @@
 {
-  "name": "qrscan",
-  "version": "1.0.6",
-  "description": "QR scanner for React",
-  "main": "dist/QRScan.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/louismerlin/qrscan.git"
+  "_from": "qrscan",
+  "_id": "qrscan@1.0.6",
+  "_inBundle": false,
+  "_integrity": "sha512-AiwkMYOC21STF2APx/z0Yv1sf8fIna5QjqtSLXSZi/8apNLjYBYoWoG5+HoUVTOdklQKfPchwm5dIsA4ZbgprQ==",
+  "_location": "/qrscan",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "qrscan",
+    "name": "qrscan",
+    "escapedName": "qrscan",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
-  "author": "Louis Merlin <louis.merlin@epfl.ch>",
-  "license": "MIT",
-  "homepage": "https://louismerlin.github.io/qrscan/",
-  "scripts": {
-    "lint": "standard",
-    "build": "babel QRScan.js -d dist",
-    "demo:start": "parcel demo/index.html",
-    "demo:build": "parcel build demo/* -d docs --public-url /qrscan/"
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/qrscan/-/qrscan-1.0.6.tgz",
+  "_shasum": "cdf89d782b5f8d191250ec94f873369da04b3930",
+  "_spec": "qrscan",
+  "_where": "C:\\Users\\Administrator\\Documents\\GitHub\\vms",
+  "author": {
+    "name": "Louis Merlin",
+    "email": "louis.merlin@epfl.ch"
   },
+  "bugs": {
+    "url": "https://github.com/louismerlin/qrscan/issues"
+  },
+  "bundleDependencies": false,
   "dependencies": {
     "jsqr": "^1.1.1"
   },
+  "deprecated": false,
+  "description": "QR scanner for React",
   "devDependencies": {
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
@@ -28,8 +45,23 @@
     "react-dom": "^16.5.2",
     "standard": "^12.0.1"
   },
+  "homepage": "https://louismerlin.github.io/qrscan/",
+  "license": "MIT",
+  "main": "dist/QRScan.js",
+  "name": "qrscan",
   "peerDependencies": {
     "react": "*",
     "react-dom": "*"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/louismerlin/qrscan.git"
+  },
+  "scripts": {
+    "build": "babel QRScan.js -d dist",
+    "demo:build": "parcel build demo/* -d docs --public-url /qrscan/",
+    "demo:start": "parcel demo/index.html",
+    "lint": "standard"
+  },
+  "version": "1.0.6"
 }
